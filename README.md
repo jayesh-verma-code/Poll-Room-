@@ -9,6 +9,15 @@ Live App → **[pollroom.jayyu.in](https://pollroom.jayyu.in/)**
 Repository → **[Poll-Room](https://github.com/jayesh-verma-code/Poll-Room-)**
 
 ---
+## Try these fun Polls
+|Poll|Link|
+|----|----|
+|🥛 How many glasses of water do you drink a day?|[pollroom.jayyu.in/poll/water](https://pollroom.jayyu.in/poll/6994726da84f6ab8a1366a2e)|
+|✨ Which superpower would you pick?|[pollroom.jayyu.in/poll/superpower](https://pollroom.jayyu.in/poll/699471dea84f6ab8a13669f6)|
+|☕ Are you a tea person or a coffee person?|[pollroom.jayyu.in/poll/teaorcoffee](https://pollroom.jayyu.in/poll/69947310a84f6ab8a1366a56)|
+|😁 Where would you travel if you could go anywhere?|[pollroom.jayyu.in/poll/travel](https://pollroom.jayyu.in/poll/69947146a84f6ab8a13669b4)|
+
+---
 
 ##  Tech Stack
 
