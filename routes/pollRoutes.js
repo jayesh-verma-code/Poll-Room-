@@ -27,7 +27,7 @@ router.get("/poll/:id", async(req,res)=>{
   try{
     const poll = await Poll.findById(req.params.id);
     if(!poll) return res.render("error");
-    res.render("poll",{ poll });
+    res.render("poll", { poll, request: req });
   }catch{
     res.render("error");
   }

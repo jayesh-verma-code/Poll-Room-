@@ -4,38 +4,84 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Poll</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dzhczzqwf/image/upload/v1771305693/pollroom-favicon_pcq8ms.png">
-    <link rel="stylesheet" href="/style.css" />
+    
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://res.cloudinary.com/dzhczzqwf/image/upload/v1771305693/pollroom-favicon_pcq8ms.png"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic:wght@100..400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/create.css" />
   </head>
   <body>
-    <div class="card">
-      <h2>Create Poll</h2>
+    <div class="wrapper">
+      <div class="pollroom-icon">
+        <img
+          src="https://res.cloudinary.com/dzhczzqwf/image/upload/v1771331825/pollroom-b_1_gjxumm.png"
+          alt="pollroom"
+        />
+      </div>
+      <h2>Create your Poll</h2>
 
       <form method="POST" action="/create">
-        <input name="question" placeholder="Question" required /><br /><br />
+        <input
+          class="input"
+          name="question"
+          placeholder="Enter your question..."
+          required
+        />
 
         <div id="options">
-          <input name="options" placeholder="Option 1" /><br />
-          <input name="options" placeholder="Option 2" /><br />
+          <input class="input option" name="options" placeholder="Option 1" />
+          <input class="input option" name="options" placeholder="Option 2" />
         </div>
 
-        <br />
-        <button type="button" onclick="addOption()">+ Add Option</button>
-        <br /><br />
+        <button type="button" class="addBtn" onclick="addOption()">
+          + Add Option
+        </button>
 
-        <button>Create</button>
+        <button class="createBtn">Create</button>
       </form>
+
+      <!-- <div class="link">
+        <div></div>
+        <a href="">pollroom.jayyu.in</a>
+        <div class="arrow"><i class="fa-solid fa-arrow-down"></i></div>
+      </div> -->
+
+      <div class="term">All rights reserved &copy Poolroom</div>
     </div>
 
     <script>
       let count = 2;
 
       function addOption() {
+        if (count >= 10) return alert("Max 10 options allowed");
+
         count++;
-        //To stop 10 options
-        // if(count >= 10) return alert("Max 10 options allowed");
+
         const div = document.getElementById("options");
-        div.innerHTML += `<input name="options" placeholder="Option ${count}"><br>`;
+
+        const input = document.createElement("input");
+        input.className = "input option";
+        input.name = "options";
+        input.placeholder = "Option " + count;
+
+        div.appendChild(input);
       }
     </script>
   </body>

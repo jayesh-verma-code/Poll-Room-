@@ -1,66 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poll Room</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dzhczzqwf/image/upload/v1771305693/pollroom-favicon_pcq8ms.png">
-    <link rel="stylesheet" href="/style.css">
-    <script src="/socket.io/socket.io.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poll Room</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dzhczzqwf/image/upload/v1771305693/pollroom-favicon_pcq8ms.png">
+<link rel="stylesheet" href="/poll.css">
+
+<script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-    
 
-<div class="card">
+
+
+<!-- my part -->
+ <div class="wrapper">
+  <div class="pollroom-icon">
+    <img
+      src="https://res.cloudinary.com/dzhczzqwf/image/upload/v1771331825/pollroom-b_1_gjxumm.png"
+      alt="pollroom"
+    />
+  </div>
   <h2><%= poll.question %></h2>
 
+      
+  <div class="card">
+    
   <div id="options">
     <% poll.options.forEach((o,i)=>{ %>
-      <button onclick="vote('<%= i %>')"><%= o.text %></button>
+      
+    <div class="option" onclick="vote('<%= i %>')">
+      <div class="num"><%= i+1 %></div>
+      <div class="bar" id="bar-<%=i%>"></div>
+        
+      <span class="label"><%= o.text %></span>
+      <span class="percent" id="percent-<%=i%>">0%</span>
+    </div>
+      
     <% }) %>
   </div>
+    
+    <div class="bottom">
+     <span id="voteCount">0 votes</span>
+      <span class="share" onclick="copyLink()">
+        Share 
+        <div><i class="fa-solid fa-share"></i></div>
+      </span>
+    </div>
+  </div>
 
-  <br>
-  <button onclick="removeVote()">Remove Vote</button>
 
-  <div id="results"></div>
-</div>
+  <div class="link">
+    <div></div>
+    <a href="/">pollroom.jayyu.in</a>
+    <div class="arrow"><i class="fa-solid fa-arrow-down"></i></div>
+  </div>
+ </div>
 
 <script>
 
-  const pollId = "<%= poll._id %>";
-  const socket = io();
-  socket.emit("joinPoll", pollId);
-  
-  socket.on("update", render);
+const pollId = "<%= poll._id %>";
+const socket = io();
+socket.emit("joinPoll", pollId);
 
-  function vote(i){
-   fetch("/vote/"+pollId,{
-     method:"POST",
-     headers:{ "Content-Type":"application/json"},
-     body:JSON.stringify({ optionIndex:i })
-   }).then(r=>r.json()).then(render);
-  }
+socket.on("update", render);
 
-  function removeVote(){
-   fetch("/vote/"+pollId,{ method:"DELETE" })
-   .then(r=>r.json())
-   .then(render);
-  }
+// vote
+function vote(i){
+ fetch("/vote/"+pollId,{
+   method:"POST",
+   headers:{ "Content-Type":"application/json"},
+   body:JSON.stringify({ optionIndex:i })
+ }).then(r=>r.json()).then(render);
+}
 
-  function render(poll){
-   const total = poll.options.reduce((a,b)=>a+b.votes,0);
-   const div = document.getElementById("results");
-   div.innerHTML="";
-  
-   poll.options.forEach(o=>{
-     const percent = total? (o.votes/total*100).toFixed(1):0;
-     div.innerHTML += `
-       <div>${o.text} (${percent}%)</div>
-       <div class="bar" style="width:${percent}%"></div>
-     `;
-   });
-  }
+// render realtime results
+function render(poll){
+
+ const total = poll.options.reduce((a,b)=>a+b.votes,0);
+ document.getElementById("voteCount").innerText =
+ total + (total===1?" vote":" votes");
+
+ poll.options.forEach((o,i)=>{
+   const percent = total ? (o.votes/total*100).toFixed(1) : 0;
+   document.getElementById("percent-"+i).innerText = percent+"%";
+   document.getElementById("bar-"+i).style.width = percent+"%";
+ });
+}
+
+// copy share link
+function copyLink(){
+ navigator.clipboard.writeText(window.location.href);
+ alert("Link copied!");
+}
+
 </script>
 
 </body>
