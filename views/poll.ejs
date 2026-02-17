@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poll Room</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dzhczzqwf/image/upload/v1771305693/pollroom-favicon_pcq8ms.png">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    
+
+<div class="card">
+  <h2><%= poll.question %></h2>
+
+  <div id="options">
+    <% poll.options.forEach((o,i)=>{ %>
+      <button onclick="vote('<%= i %>')"><%= o.text %></button>
+    <% }) %>
+  </div>
+
+  <br>
+  <button onclick="removeVote()">Remove Vote</button>
+
+  <div id="results"></div>
+</div>
+
+<script>
+
+  const pollId = "<%= poll._id %>";
+  const socket = io();
+  socket.emit("joinPoll", pollId);
+  
+  socket.on("update", render);
+
+  function vote(i){
+   fetch("/vote/"+pollId,{
+     method:"POST",
+     headers:{ "Content-Type":"application/json"},
+     body:JSON.stringify({ optionIndex:i })
+   }).then(r=>r.json()).then(render);
+  }
+
+  function removeVote(){
+   fetch("/vote/"+pollId,{ method:"DELETE" })
+   .then(r=>r.json())
+   .then(render);
+  }
+
+  function render(poll){
+   const total = poll.options.reduce((a,b)=>a+b.votes,0);
+   const div = document.getElementById("results");
+   div.innerHTML="";
+  
+   poll.options.forEach(o=>{
+     const percent = total? (o.votes/total*100).toFixed(1):0;
+     div.innerHTML += `
+       <div>${o.text} (${percent}%)</div>
+       <div class="bar" style="width:${percent}%"></div>
+     `;
+   });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Poll</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dzhczzqwf/image/upload/v1771305693/pollroom-favicon_pcq8ms.png">
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="card">
+      <h2>Create Poll</h2>
+
+      <form method="POST" action="/create">
+        <input name="question" placeholder="Question" required /><br /><br />
+
+        <div id="options">
+          <input name="options" placeholder="Option 1" /><br />
+          <input name="options" placeholder="Option 2" /><br />
+        </div>
+
+        <br />
+        <button type="button" onclick="addOption()">+ Add Option</button>
+        <br /><br />
+
+        <button>Create</button>
+      </form>
+    </div>
+
+    <script>
+      let count = 2;
+
+      function addOption() {
+        count++;
+        //To stop 10 options
+        // if(count >= 10) return alert("Max 10 options allowed");
+        const div = document.getElementById("options");
+        div.innerHTML += `<input name="options" placeholder="Option ${count}"><br>`;
+      }
+    </script>
+  </body>
+</html>
