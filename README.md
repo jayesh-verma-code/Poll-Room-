@@ -6,7 +6,8 @@
 **Create polls, share them anywhere, and watch live results update instantly.**
 
 Live App → **[pollroom.jayyu.in](https://pollroom.jayyu.in/)**  
-Repository → **[Poll-Room](https://github.com/jayesh-verma-code/Poll-Room-)**
+Repository → **[Poll-Room](https://github.com/jayesh-verma-code/Poll-Room-)**  
+Video demo → **[Drive Link](https://drive.google.com/file/d/1kYO5oFx-PXodYRVNo6Zd3cdIQMVZ-tcW/view?usp=sharing)**
 
 ---
 ## Try these fun Polls
