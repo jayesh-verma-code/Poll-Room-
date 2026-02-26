@@ -8,6 +8,7 @@
 Live App → **[pollroom.jayyu.in](https://pollroom.jayyu.in/)**  
 Repository → **[Poll-Room](https://github.com/jayesh-verma-code/Poll-Room-)**  
 Video demo → **[Drive Link](https://drive.google.com/file/d/1kYO5oFx-PXodYRVNo6Zd3cdIQMVZ-tcW/view?usp=sharing)**
+> The website may take few seconds to load, kindly wait.
 
 ---
 ## Try these fun Polls
